@@ -1,0 +1,26 @@
+msc {
+    hscale = "1.5";
+
+    c [label="Consumer"], f [label="Follower {id=1, broker.rack=rack1}"], l [label="Leader {id=0, broker.rack=rack2}"];
+
+    |||;
+    |||;
+
+    c=>>l [label="Fetch {partition=0, client.rack=rack1}\n\n"];
+    c<<l [label="FetchResponse {records=[...], preferredReplica=1}\n\n"];
+    |||;
+
+    c=>>f [label="Fetch {partition=0, client.rack=rack1}\n\n"];
+    c<<f [label="FetchResponse {records=[...]}\n\n"];
+    |||;
+
+    c=>>f [label="Fetch {partition=0, client.rack=rack1}\n\n"];
+    c<<f [label="FetchResponse {records=[...]}\n\n"];
+
+    |||;
+    --- [label="metadata.max.age.ms expires\n\n"];
+    |||;
+
+    c=>>l [label="Fetch {partition=0, client.rack=rack1}\n\n"];
+    c<<l [label="FetchResponse {records=[...], preferredReplica=1}\n\n"];
+}
